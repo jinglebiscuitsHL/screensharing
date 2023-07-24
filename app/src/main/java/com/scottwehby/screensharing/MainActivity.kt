@@ -78,26 +78,21 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun startRecording() {
-        mediaRecorder = MediaRecorder()
-        mediaRecorder?.let {
-            prepareMediaRecorder(it)
-        }
         val metrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(metrics)
 
-//        mediaRecorder?.apply {
-//            try {
-//                prepare()
-//                start()
-//                Thread.sleep(500)
-//                stop()
-//                reset()
-//                release()
-//                Log.d(TAG, "Microphone is available")
-//            } catch (e: Exception) {
-//                Log.e(TAG, "Microphone is not available", e)
-//            }
-//        }
+        mediaRecorder = MediaRecorder().apply {
+            setVideoSource(MediaRecorder.VideoSource.SURFACE)
+            setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+            val filePath = File(filesDir, "screen-capture.mp4").absolutePath
+            setOutputFile(filePath)
+            setVideoEncoder(MediaRecorder.VideoEncoder.H264)
+            setVideoSize(1080, 2200)
+            setVideoFrameRate(30)
+            setVideoEncodingBitRate(3 * 1080 * 2200)
+            prepare()
+        }
+
         mediaProjection?.let {
             virtualDisplay = it.createVirtualDisplay(
                 "ScreenCapture",
@@ -106,36 +101,6 @@ class MainActivity : ComponentActivity() {
                 mediaRecorder?.surface, null, null
             )
             mediaRecorder?.start()
-        }
-    }
-
-    private fun prepareMediaRecorder(mR: MediaRecorder) {
-        val metrics = DisplayMetrics()
-        windowManager.defaultDisplay.getMetrics(metrics)
-        mR.apply {
-            val file = File(cacheDir, "screen-capture.mp4")
-            if (!file.exists()) {
-                Log.e(TAG, "Output file does not exist")
-            } else {
-                Log.d(TAG, "file exists: ${file.absolutePath}")
-            }
-            if (!file.canWrite()) {
-                Log.e(TAG, "Cannot write to output file")
-            }
-            Log.i("CAMERA", "Recording")
-            // Creating MediaRecorder and specifying video source, output format, encoder, and output file
-
-            setVideoSource(MediaRecorder.VideoSource.SURFACE)
-            setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-            Log.d(TAG, "setVideoSize: ${metrics.widthPixels} x ${metrics.heightPixels}")
-            setVideoSize(1080, 2200)
-            setVideoEncoder(MediaRecorder.VideoEncoder.DEFAULT)
-            setOutputFile(file.absolutePath)
-
-
-            prepare()
-            val surface: Surface = surface
-//            start()
         }
     }
 
