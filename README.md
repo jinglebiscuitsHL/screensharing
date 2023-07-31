@@ -9,7 +9,7 @@ This is a proof of concept project meant to demonstrate the screensharing capabi
   - In the event the screensharing episode is canceled by another user, we would like HL to be forced to the foreground for our screensharing user.
   
 # Before running
-You'll need to edit the screen resolution in MainActivity.kt. Currently it is hardcoded to a Pixel 7 screen sizes which is 1080 x 2200.
+You'll need to edit the screen resolution in MainActivity.kt. Currently it is hardcoded to a Pixel 7 screen size which is 1080 x 2200.
 
 # How to use
 - Press the "Start Screen Capture" button
