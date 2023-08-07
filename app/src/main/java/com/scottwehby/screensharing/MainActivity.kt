@@ -18,6 +18,8 @@ import android.media.projection.MediaProjection
 import android.media.projection.MediaProjectionManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.DisplayMetrics
 import android.util.Log
 import android.util.Rational
@@ -60,6 +62,9 @@ class MainActivity : ComponentActivity() {
                 mediaProjection =
                     mediaProjectionManager.getMediaProjection(result.resultCode, result.data!!)
                 startRecording()
+
+                //test timeout to stop sharing and return back from PiP mode
+                Handler(Looper.getMainLooper()).postDelayed({ exitPiPMode() }, 10_000L)
             } else {
                 // TODO: Handle failure
             }
