@@ -172,11 +172,9 @@ class MainActivity : ComponentActivity() {
 
     override fun onUserLeaveHint() {
         super.onUserLeaveHint()
-        if (state.value.isSharing
-            && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
-            && Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+
             enterPictureInPictureMode(updatePictureInPictureParams())
-        }
+        
     }
 
     private fun exitPiPMode() {
@@ -232,7 +230,7 @@ class MainActivity : ComponentActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             builder
                 // Turn the screen into the picture-in-picture mode if it's hidden by the "Home" button.
-                .setAutoEnterEnabled(state.value.isSharing)
+                .setAutoEnterEnabled(true)
                 // Disables the seamless resize. The seamless resize works great for videos where the
                 // content can be arbitrarily scaled, but you can disable this for non-video content so
                 // that the picture-in-picture mode is resized with a cross fade animation.
