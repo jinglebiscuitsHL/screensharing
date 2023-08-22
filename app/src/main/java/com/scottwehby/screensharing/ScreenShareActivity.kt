@@ -33,7 +33,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -47,7 +46,7 @@ import androidx.core.content.ContextCompat
 import java.io.File
 
 
-class MainActivity : ComponentActivity() {
+class ScreenShareActivity : ComponentActivity() {
 
     private val state = mutableStateOf(MainState(isSharing = false, isMuted = false, isPiPMode = false))
 
@@ -174,12 +173,12 @@ class MainActivity : ComponentActivity() {
         super.onUserLeaveHint()
 
             enterPictureInPictureMode(updatePictureInPictureParams())
-        
+
     }
 
     private fun exitPiPMode() {
         Log.d(TAG, "exitPiPMode() and stop sharing")
-        val startIntent = Intent(this, MainActivity::class.java)
+        val startIntent = Intent(this, ScreenShareActivity::class.java)
         startIntent.flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
         startActivity(startIntent)
         stopScreenSharing()
